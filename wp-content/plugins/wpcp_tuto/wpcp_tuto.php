@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * @package Custom Post Type
+ */
+/*
+Plugin Name: custom post type tutorial Alex Mozagba
+Plugin URI: alexmozagba.com
+Description: creating a custom post type as part of job application test
+Version: 0.1.0
+Requires PHP: 8.4.11
+Author: Alex Mozagba
+License: GPLv2 or later
+Text Domain: custpost
+*/
+
+if (! defined('ABSPATH')) {
+     die();
+}
 
 function wpcp_custom_post_type()
 {

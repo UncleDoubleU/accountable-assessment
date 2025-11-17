@@ -1,7 +1,9 @@
 {
      "core": "WordPress/WordPress",
      "phpVersion": "8.4",
-     "plugins": "./wp-content/plugins/wpcp_tuto",
+     "plugins": [
+          "./wp-content/plugins/wpcp_tuto"
+     ],
      "config": {
           "WP_DEBUG": true,
           "WP_DEBUG_LOG": true,
