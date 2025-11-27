@@ -21,16 +21,30 @@ if (! defined('ABSPATH')) {
 function wpcp_custom_post_type()
 {
      register_post_type(
-          'wpcp_product',
+          'wpcp_traveler_spotlight',
           array(
                'labels' => array(
-                    'name' => __('Products', 'textdomain'),
-                    'singular_name' => __('Product', 'textdomain'),
+                    // __() function makes code multilingual ready.
+                    'name' => __('Traveler Spotlights', 'custpost'),
+                    'singular_name' => __('Traveler Spotlight', 'custpost'),
                ),
-               'description' => 'creating a post type called product, which is identitfied in the database as wpcp_product',
+               'description' => "custom post displaying the traveler's name, photo, short qupte and a link to their full story",
                'public' => true,
                'has_archive' => true,
           )
      );
 }
 add_action('init', 'wpcp_custom_post_type');
+
+// adding metabox to the admin screen, this is where I can add fields.
+function wpcp_add_meta_box()
+{
+     add_meta_box(
+          'wpcp_traveler_fields_box',
+          'traveler information',
+          'show_traveler_fields',
+          'wpcp_traveler_spotlight',
+          'normal'
+     );
+}
+add_action('add_meta_boxes', 'add_product_info_box');
