@@ -56,14 +56,30 @@ function wpcp_show_traveler_fields($post)
 {
 
      $traveler_quote = get_post_meta($post->ID, 'wpcp_trav_quote', true);
-     // $traveler_image = get_post_meta();
-     // $traveler_link = get_post_meta();
+     $traveler_link = get_post_meta($post->ID, 'wpcp_trav_link', true);
+     // $traveler_image = get_post_meta($post->ID, 'wpcp_trav_img', true);
 ?>
      <p>
           <label for="wpcp_trav_quote">The traveler's quote</label>
-          <textarea name="wpcp_trav_quote" id="wpcp_trav_quote" placeholder="custom quote field" maxlength="500" style="width:100%; height:100px;"><?php echo esc_textarea($traveler_quote); ?></textarea>
+          <textarea
+               name="wpcp_trav_quote"
+               id="wpcp_trav_quote"
+               placeholder="custom quote field"
+               maxlength="500"
+               style="width:100%; height:100px;">
+               <?php echo esc_textarea($traveler_quote); ?>
+          </textarea>
+     </p>
+
+     <p>
+          <label for="wpcp_trav_link">Traveler's link</label>
+          <input
+               type="url"
+               name="wpcp_trav_link"
+               value="<?php echo esc_url_raw($traveler_link) ?>"
+               style="width:100%;" />
      </p>
 <?php
 }
 
-// function wpcp_save_traveler_fields($post_id) {}
+function wpcp_save_traveler_fields($post_id) {}
