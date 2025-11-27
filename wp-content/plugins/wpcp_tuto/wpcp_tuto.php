@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
 function wpcp_custom_post_type()
 {
      register_post_type(
-          'wpcp_traveler_spotlight',
+          'wpcp_trav_spotlight',
           array(
                'labels' => array(
                     // __() function makes code multilingual ready.
@@ -36,15 +36,32 @@ function wpcp_custom_post_type()
 }
 add_action('init', 'wpcp_custom_post_type');
 
-// adding metabox to the admin screen, this is where I can add fields.
+// adding metabox, this box is where I can add fields to the custom post.
 function wpcp_add_meta_box()
 {
      add_meta_box(
-          'wpcp_traveler_fields_box',
-          'traveler information',
+          'wpcp_traveler_box',
+          __('traveler information', 'custpost'),
           'show_traveler_fields',
-          'wpcp_traveler_spotlight',
-          'normal'
+          'wpcp_trav_spotlight',
+          'high'
      );
 }
-add_action('add_meta_boxes', 'add_product_info_box');
+add_action('add_meta_boxes', 'wpcp_add_meta_box');
+
+// display the fields in the admin screen
+
+function wpcp_show_traveler_fields($post)
+{
+     $traveler_quote = get_post_meta($post->ID, 'wpcp_trav_quote', true);
+     // $traveler_image = get_post_meta();
+     // $traveler_link = get_post_meta();
+?>
+     <p>
+          <label for="wpcp_trav_quote">The traveler's quote</label>
+          <textarea name="wpcp_trav_quote" id="wpcp_trav_quote" maxlength="500" style="width:100%; height:100%;"><?php echo esc_textarea($traveler_quote); ?></textarea>
+     </p>
+<?php
+}
+
+function wpcp_save_traveler_fields($post_id) {}
