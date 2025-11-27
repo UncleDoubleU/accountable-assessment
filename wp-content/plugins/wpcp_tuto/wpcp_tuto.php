@@ -52,7 +52,6 @@ function wpcp_add_meta_box()
 add_action('add_meta_boxes', 'wpcp_add_meta_box');
 
 // display the fields in the admin screen
-
 function wpcp_show_traveler_fields($post)
 {
 
