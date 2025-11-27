@@ -31,6 +31,8 @@ function wpcp_custom_post_type()
                'description' => "custom post displaying the traveler's name, photo, short qupte and a link to their full story",
                'public' => true,
                'has_archive' => true,
+               // only show the relevant fields
+               'supports' => array('title', 'thumbnail'),
           )
      );
 }
@@ -42,9 +44,9 @@ function wpcp_add_meta_box()
      add_meta_box(
           'wpcp_traveler_box',
           __('traveler information', 'custpost'),
-          'show_traveler_fields',
+          'wpcp_show_traveler_fields',
           'wpcp_trav_spotlight',
-          'high'
+          'normal',
      );
 }
 add_action('add_meta_boxes', 'wpcp_add_meta_box');
@@ -53,15 +55,16 @@ add_action('add_meta_boxes', 'wpcp_add_meta_box');
 
 function wpcp_show_traveler_fields($post)
 {
+
      $traveler_quote = get_post_meta($post->ID, 'wpcp_trav_quote', true);
      // $traveler_image = get_post_meta();
      // $traveler_link = get_post_meta();
 ?>
      <p>
           <label for="wpcp_trav_quote">The traveler's quote</label>
-          <textarea name="wpcp_trav_quote" id="wpcp_trav_quote" maxlength="500" style="width:100%; height:100%;"><?php echo esc_textarea($traveler_quote); ?></textarea>
+          <textarea name="wpcp_trav_quote" id="wpcp_trav_quote" placeholder="custom quote field" maxlength="500" style="width:100%; height:100px;"><?php echo esc_textarea($traveler_quote); ?></textarea>
      </p>
 <?php
 }
 
-function wpcp_save_traveler_fields($post_id) {}
+// function wpcp_save_traveler_fields($post_id) {}
