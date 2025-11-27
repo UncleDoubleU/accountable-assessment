@@ -72,14 +72,35 @@ function wpcp_show_traveler_fields($post)
      </p>
 
      <p>
-          <label for="wpcp_trav_link">Traveler's link</label>
+          <label for="wpcp_trav_link">Traveler's link Safe?</label>
           <input
                type="url"
                name="wpcp_trav_link"
-               value="<?php echo esc_url_raw($traveler_link) ?>"
+               value="<?php echo esc_attr($traveler_link) ?>"
                style="width:100%;" />
      </p>
 <?php
 }
 
-function wpcp_save_traveler_fields($post_id) {}
+// sanitising data on save ensures that 
+function wpcp_save_trav_postdata($post_id)
+{
+     if (isset($_POST['wpcp_trav_quote'])) {
+          update_post_meta(
+               $post_id,
+               'wpcp_trav_quote',
+               // keeps line breaks and other white spaces.
+               sanitize_textarea_field($_POST['wpcp_trav_quote'])
+          );
+     }
+
+     if (isset($_POST['wpcp_trav_link'])) {
+          update_post_meta(
+               $post_id,
+               'wpcp_trav_link',
+               esc_url_raw($_POST['wpcp_trav_link'])
+          );
+     }
+}
+
+add_action('save_post', 'wpcp_save_trav_postdata');
