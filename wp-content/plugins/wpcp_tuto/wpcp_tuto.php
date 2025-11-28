@@ -105,6 +105,8 @@ function wpcp_save_trav_postdata($post_id)
 
 add_action('save_post', 'wpcp_save_trav_postdata');
 
+///////////////////////////////////////////// part 2 ///////////////////////////////////////////
+
 function wpcp_display_trav_shortcode()
 {
      // using custom loop allows to keep all code relevant to the post within the same file.
