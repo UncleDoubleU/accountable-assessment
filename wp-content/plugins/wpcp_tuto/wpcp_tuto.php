@@ -122,13 +122,27 @@ function wpcp_display_trav_shortcode()
      // using ob_get_clean() it is shorter than calling ob_get_content than ob_end_flush to return the content of the output buffer and turn it off. the content is not deleted which keeps it available in 
      ob_start();
 
-     if ($trav_query->have_post()) {
+     if ($trav_query->have_posts()) {
           echo '<div class="traveler-spolights">';
-
-          while ($trav_query->have_post()) {
+          // using a while loop because it works perfectly with the truth / false check from the have_post().
+          while ($trav_query->have_posts()) {
+               // adding the posts found to the global post object and adding helper functions each post this runs once per post as long as ther are post available (if have_posts() is true)
                $trav_query->the_post();
+
+               echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+               if (has_post_thumbnail()) {
+                    echo get_the_post_thumbnail(get_the_ID(), 'large');
+               }
           }
 
           echo '</div>';
+     } else {
+          esc_html_e('Sorry, no posts matched your criteria.');
      }
+
+     wp_reset_postdata();
+
+     return ob_get_clean();
 }
+
+add_shortcode('traveler_spotlights', 'wpcp_display_trav_shortcode');
