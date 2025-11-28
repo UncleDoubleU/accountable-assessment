@@ -55,8 +55,8 @@ add_action('add_meta_boxes', 'wpcp_add_meta_box');
 function wpcp_show_traveler_fields($post)
 {
 
-     $traveler_quote = get_post_meta($post->ID, 'wpcp_trav_quote', true);
-     $traveler_link = get_post_meta($post->ID, 'wpcp_trav_link', true);
+     $traveler_quote = get_post_meta($post->ID, '_wpcp_meta_key', true);
+     $traveler_link = get_post_meta($post->ID, '_wpcp_meta_key', true);
      // $traveler_image = get_post_meta($post->ID, 'wpcp_trav_img', true);
 ?>
      <p>
@@ -88,7 +88,7 @@ function wpcp_save_trav_postdata($post_id)
      if (isset($_POST['wpcp_trav_quote'])) {
           update_post_meta(
                $post_id,
-               'wpcp_trav_quote',
+               '_wpcp_meta_key',
                // keeps line breaks and other white spaces.
                sanitize_textarea_field($_POST['wpcp_trav_quote'])
           );
@@ -97,7 +97,7 @@ function wpcp_save_trav_postdata($post_id)
      if (isset($_POST['wpcp_trav_link'])) {
           update_post_meta(
                $post_id,
-               'wpcp_trav_link',
+               '_wpcp_meta_key',
                esc_url_raw($_POST['wpcp_trav_link'])
           );
      }
@@ -133,6 +133,7 @@ function wpcp_display_trav_shortcode()
                if (has_post_thumbnail()) {
                     echo get_the_post_thumbnail(get_the_ID(), 'large');
                }
+               echo '<a>' . 'Read full story' . '</a>';
           }
 
           echo '</div>';
