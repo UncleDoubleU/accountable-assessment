@@ -112,8 +112,9 @@ function wpcp_display_trav_shortcode()
      // using custom loop allows to keep all code relevant to the post within the same file.
      $trav_query = new WP_Query(array(
           'post_type' => 'wpcp_trav_spotlight',
-          // to show all posts use -1 
-          'posts_per_page' => -1
+          'posts_per_page' => 1,
+          'order' => 'DESC',
+          'orderby' => 'date'
      ));
 
      // takes in the echoed values and stores them in a buffer instead of being sent to the browser. while ob_start is active no output is sent from the script, it is stored in internal this avoid sending partial requests that could break the headers.
