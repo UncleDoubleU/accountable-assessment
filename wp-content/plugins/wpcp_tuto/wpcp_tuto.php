@@ -104,3 +104,29 @@ function wpcp_save_trav_postdata($post_id)
 }
 
 add_action('save_post', 'wpcp_save_trav_postdata');
+
+function wpcp_display_trav_shortcode()
+{
+     // using custom loop allows to keep all code relevant to the post within the same file.
+     $trav_query = new WP_Query(array(
+          'post_type' => 'wpcp_trav_spotlight',
+          // to show all posts use -1 
+          'posts_per_page' => -1
+     ));
+
+     // takes in the echoed values and stores them in a buffer instead of being sent to the browser. while ob_start is active no output is sent from the script, it is stored in internal this avoid sending partial requests that could break the headers.
+     // 
+     // can use ob_get_level() to find out if an output already been started
+     // using ob_get_clean() it is shorter than calling ob_get_content than ob_end_flush to return the content of the output buffer and turn it off. the content is not deleted which keeps it available in 
+     ob_start();
+
+     if ($trav_query->have_post()) {
+          echo '<div class="traveler-spolights">';
+
+          while ($trav_query->have_post()) {
+               $trav_query->the_post();
+          }
+
+          echo '</div>';
+     }
+}
